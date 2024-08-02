@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using System.Threading;
 
 namespace Garnet.common
 {
@@ -73,11 +74,13 @@ namespace Garnet.common
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception,
             Func<TState, Exception, string> formatter, string categoryName)
         {
-            var msg = string.Format("[{0:D3}.{1}] ({2}) <{3}> {4}",
-                eventId.Id,
+            string msg = string.Format("{0} [{1}:{2}] {3} {4}:{5} - {6}",
+                logLevel.ToString().ToUpper(),
+                Thread.CurrentThread.Name,
+                Thread.CurrentThread.ManagedThreadId,
                 LogFormatter.FormatDate(DateTime.UtcNow),
-                logLevel,
                 categoryName,
+                eventId,
                 formatter(state, exception));
 
             lock (lockObj)

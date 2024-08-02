@@ -11,7 +11,7 @@ namespace Garnet.common
     /// </summary>
     public static class LogFormatter
     {
-        private const string TIME_FORMAT = "HH:mm:ss.ffff";
+        private const string TIME_FORMAT = "HH:mm:ss,fff";
         private const string DATE_FORMAT = "yyyy-MM-dd " + TIME_FORMAT;
 
         /// <summary>
